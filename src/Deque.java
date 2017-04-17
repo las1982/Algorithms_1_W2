@@ -2,7 +2,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import static edu.princeton.cs.algs4.StdOut.println;
 
-// рповрлпорвалплдваыорпдл
+
 public class Deque<Item> implements Iterable<Item> {
     // construct an empty deque
     private Item[] a;
