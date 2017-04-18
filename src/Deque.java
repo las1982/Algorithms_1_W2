@@ -7,18 +7,20 @@ public class Deque<Item> implements Iterable<Item> {
     // construct an empty deque
     private Item[] a;
     private int n;
+    private int lastInd;
+    private int firstInd;
 
     public Deque() {
+        a = (Item[]) new Object[2];
         n = 0;
-        a = (Item[]) new Object[n];
+        firstInd = 1;
+        lastInd = 0;
     }
 
-    // is the deque empty?
     public boolean isEmpty() {
         return n == 0;
     }
 
-    // return the number of items on the deque
     public int size() {
         return n;
     }
@@ -26,37 +28,38 @@ public class Deque<Item> implements Iterable<Item> {
     // resize the underlying array holding the elements
     private void resize(int capacity) {
         assert capacity >= n;
-
         // textbook implementation
         Item[] temp = (Item[]) new Object[capacity];
+        firstInd = (capacity - n) / 2;
+        lastInd = firstInd + n - 1;
+        int tempStart = firstInd;
         for (int i = 0; i < n; i++) {
-            temp[i] = a[i];
+            temp[tempStart++] = a[i];
         }
         a = temp;
-
-        // alternative implementation
         // a = java.util.Arrays.copyOf(a, capacity);
     }
-
     // add the item to the front
     public void addFirst(Item item) {
-        if (n == a.length) resize(2 * a.length);    // double size of array if necessary
-        a[n++] = item;                            // add item
-
+        if (item == null) throw new java.lang.NullPointerException("cant add null");
+        if (firstInd == 0 || lastInd == a.length - 1) resize(2 * a.length);    // double size of array if necessary
+        a[--firstInd] = item;
+        n++;
     }
 
     // add the item to the end
     public void addLast(Item item) {
-        if (n == a.length) resize(2 * a.length);    // double size of array if necessary
-        a[n++] = item;                            // add item
-
+        if (item == null) throw new java.lang.NullPointerException("cant add null");
+        if (firstInd == 0 || lastInd == a.length - 1) resize(2 * a.length);    // double size of array if necessary
+        a[++lastInd] = item;
+        n++;
     }
 
     // remove and return the item from the front
     public Item removeFirst() {
         if (isEmpty()) throw new NoSuchElementException("Stack underflow");
-        Item item = a[n - 1];
-        a[n - 1] = null;                              // to avoid loitering
+        Item item = a[firstInd];
+        a[firstInd++] = null;                              // to avoid loitering
         n--;
         // shrink size of array if necessary
         if (n > 0 && n == a.length / 4) resize(a.length / 2);
@@ -66,8 +69,8 @@ public class Deque<Item> implements Iterable<Item> {
     // remove and return the item from the end
     public Item removeLast() {
         if (isEmpty()) throw new NoSuchElementException("Stack underflow");
-        Item item = a[n - 1];
-        a[n - 1] = null;                              // to avoid loitering
+        Item item = a[lastInd];
+        a[lastInd--] = null;                              // to avoid loitering
         n--;
         // shrink size of array if necessary
         if (n > 0 && n == a.length / 4) resize(a.length / 2);
@@ -85,5 +88,7 @@ public class Deque<Item> implements Iterable<Item> {
         Deque d = new Deque<>();
         println(d.isEmpty());
         println(d.size());
+        println(d.a.length);
+        d.addFirst(1);
     }
 }
