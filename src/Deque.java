@@ -84,13 +84,18 @@ public class Deque<Item> implements Iterable<Item> {
         Deque d = new Deque<>();
         println(d.size() + " of " + d.a.length);
         d.addFirst(1);
+        println("firstInd = " + d.firstInd + ", lastInd = " + d.lastInd);
         println(d.size() + " of " + d.a.length);
         d.addFirst(1);
+        println("firstInd = " + d.firstInd + ", lastInd = " + d.lastInd);
         println(d.size() + " of " + d.a.length);
         d.removeLast();
+        println("firstInd = " + d.firstInd + ", lastInd = " + d.lastInd);
         println(d.size() + " of " + d.a.length);
         d.removeLast();
+        println("firstInd = " + d.firstInd + ", lastInd = " + d.lastInd);
         println(d.size() + " of " + d.a.length);
+        println("firstInd = " + d.firstInd + ", lastInd = " + d.lastInd);
         d.addFirst("");
         println(d.size() + " of " + d.a.length);
 
