@@ -1,5 +1,6 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+
 import static edu.princeton.cs.algs4.StdOut.println;
 
 
@@ -25,10 +26,8 @@ public class Deque<Item> implements Iterable<Item> {
         return n;
     }
 
-    // resize the underlying array holding the elements
     private void resize(int capacity) {
         assert capacity >= n;
-        // textbook implementation
         Item[] temp = (Item[]) new Object[capacity];
         firstInd = (capacity - n) / 2;
         lastInd = firstInd + n - 1;
@@ -39,7 +38,7 @@ public class Deque<Item> implements Iterable<Item> {
         a = temp;
         // a = java.util.Arrays.copyOf(a, capacity);
     }
-    // add the item to the front
+
     public void addFirst(Item item) {
         if (item == null) throw new java.lang.NullPointerException("cant add null");
         if (firstInd == 0 || lastInd == a.length - 1) resize(2 * a.length);    // double size of array if necessary
@@ -47,7 +46,6 @@ public class Deque<Item> implements Iterable<Item> {
         n++;
     }
 
-    // add the item to the end
     public void addLast(Item item) {
         if (item == null) throw new java.lang.NullPointerException("cant add null");
         if (firstInd == 0 || lastInd == a.length - 1) resize(2 * a.length);    // double size of array if necessary
@@ -55,7 +53,6 @@ public class Deque<Item> implements Iterable<Item> {
         n++;
     }
 
-    // remove and return the item from the front
     public Item removeFirst() {
         if (isEmpty()) throw new NoSuchElementException("Stack underflow");
         Item item = a[firstInd];
@@ -66,7 +63,6 @@ public class Deque<Item> implements Iterable<Item> {
         return item;
     }
 
-    // remove and return the item from the end
     public Item removeLast() {
         if (isEmpty()) throw new NoSuchElementException("Stack underflow");
         Item item = a[lastInd];
@@ -94,6 +90,8 @@ public class Deque<Item> implements Iterable<Item> {
         d.removeLast();
         println(d.size() + " of " + d.a.length);
         d.removeLast();
+        println(d.size() + " of " + d.a.length);
+        d.addFirst("");
         println(d.size() + " of " + d.a.length);
 
     }
