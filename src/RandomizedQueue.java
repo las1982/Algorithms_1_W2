@@ -88,12 +88,13 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     // an iterator, doesn't implement remove() since it's optional
     private class RandomeArrayIterator implements Iterator<Item> {
         private int i;
-        Item[] temp;
+        Item[] temp = (Item[]) new Object[n];
 
         public RandomeArrayIterator() {
             shuffle();
-            temp = (Item[]) new Object[a.length];
-            temp = a;
+            for (int i = 0; i < n; i++) {
+                temp[i] = a[i];
+            }
             i = 0;
         }
 
